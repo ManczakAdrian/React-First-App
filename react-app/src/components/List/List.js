@@ -12,10 +12,11 @@ const List = () => {
         { id: 2, title: 'Movies', icon: 'film' },
         { id: 3, title: 'Games', icon: 'gamepad' }
     ]);
-    handleSubmit = () => {
-        
-        setColumns([...columns, { id: shortid(), title: value }]);
-    }
+    const handleSubmit = e => {
+		e.preventDefault();
+		setColumns([...columns, { id: shortid(), title: value }]);
+		setValue('');
+};
     // useEffect(() => {
 
     //     	setTimeout(() => {
@@ -34,7 +35,6 @@ const List = () => {
                 {columns.map(column => <Column key={column.id} title={column.title} icon={column.icon} />)}
             </section>
             <form>
-                
                 <input type="text" value={value} onChange={e => setValue(e.target.value)} />
                 <button>Add column</button>
 
