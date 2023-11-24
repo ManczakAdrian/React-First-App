@@ -2,6 +2,8 @@ import Card from '../Card/Card';
 import styles from './Column.module.scss'
 
 const Column = props => {
+    const cards = useSelector(state => state.cards.filter(card => card.columnId === props.id));
+    
     
     return (
         <article className={styles.column}>
