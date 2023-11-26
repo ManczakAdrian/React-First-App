@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <SearchForm></SearchForm>
+      
       <Lists />
     </>
   );

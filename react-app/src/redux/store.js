@@ -1,31 +1,26 @@
-import { createStore, combineReducers } from "redux";
-import initialState from "./initialState";
-import shortid from "shortid";
-import strContains from "../utils/strContains";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { createStore, combineReducers } from 'redux';
+import initialState from './initialState';
+import strContains from '../utils/strContains';
+import listsReducer from './listsRedux';
+import columnsReducer from './columnsRedux';
+import cardsReducer from './cardsRedux';
+import searchStringReducer from './searchStringRedux';
 
 
-export const getFilteredCards = ({ cards, searchString }, columnId) => cards
-    .filter(card => card.columnId === columnId && card.title.toLowerCase().includes(searchString.toLowerCase()));
+const subreducers = {
+  lists: listsReducer,
+  columns: columnsReducer,
+  cards: cardsReducer,
+  searchTerm: searchStringReducer
+}
 
-export const columns = useSelector(getAllColumns);
-// action creators
-export const addColumn = payload => ({ type: 'ADD_COLUMN', payload });
+const reducer = combineReducers(subreducers);
 
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_COLUMN':
-            return { ...state, columns: [...state.columns, { ...action.payload, id: shortid() }] };
-        default:
-            return state;
-    }
-};
 
 const store = createStore(
-    reducer,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  reducer,
+  initialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default store;

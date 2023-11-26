@@ -2,7 +2,7 @@ import styles from './List.module.scss';
 import Column from './../Column/Column';
 import ColumnForm from './../ColumnForm/ColumnForm';
 import { useSelector } from 'react-redux';
-
+import { useParams } from 'react-router';
 
 
 const List = () => {
@@ -13,7 +13,7 @@ const List = () => {
     const columns = useSelector((state) => getColumnsByList(state, listId));
     const listData = useSelector((state) => getListById(state, listId));
    
-
+    if(!listData) return <Navigate to="/" />
     return (
         <div className={styles.list}>
           <header className={styles.header}>

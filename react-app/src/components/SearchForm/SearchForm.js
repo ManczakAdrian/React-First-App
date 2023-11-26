@@ -1,39 +1,35 @@
-import TextInput from "../TextInput/TextInput";
-import Button from "../Button/Button";
-import styles from "./SearchForm.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { getSearchString, changeFilterCards } from "../../redux/filterCardsRedux";
+import styles from './SearchForm.module.scss'
+import TextInput from '../TextInput/TextInput';
+import Button from '../Button/Button';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { updateSearching } from '../../redux/searchStringRedux';
+import { useEffect } from 'react';
 
 const SearchForm = () => {
-  const dispatch = useDispatch();
-  const searchString = useSelector(getSearchString);
 
-  const [search, setSearch] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    setSearch(searchString);
-  }, [searchString]); 
+    const dispatch = useDispatch();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(changeFilterCards(search));
-    setSearch("");
-  };
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(updateSearching(inputValue));
+    };
 
-  return (
-    <form onSubmit={handleSearch} className={styles.searchForm}>
-      <TextInput
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search..."
-      />
-      <Button>
-        <span className="fa fa-search" />
-      </Button>
-    </form>
-  );
+    useEffect(() => {
+        // Zeruj state.searchString przy inicjacji komponentu
+        dispatch(updateSearching(''));
+    }, [dispatch]);
+
+    return (
+        <form className={styles.searchForm} onSubmit={handleSubmit}>
+            <TextInput onChange={e => setInputValue(e.target.value)}  placeholder="Search..." />
+            <Button>
+                <span className="fa fa-search" />
+            </Button>
+        </form>
+    );
 };
 
 export default SearchForm;
