@@ -1,13 +1,11 @@
-import Hero from './components/Hero/Hero'
-import SearchForm from './components/SearchForm/SearchForm'
-import List from './components/List/List'
+
 import Container from './components/Container/Container';
 import NavBar from './components/NavBar/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home/Home';
-import About from './components/About/about';
+import About from './components/About/About';
 import NotFound from './components/NotFound/NotFound';
-import Favorite from './components/Favorite/favorite';
+import Favorite from './components/Favorite/Favorite';
 
 
 const App = () => {
